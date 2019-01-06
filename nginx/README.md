@@ -12,5 +12,5 @@ continuously merged in.
 - `worker_rlimit_nofile` config added and defaulted to `8192`
 - `http.access_log` config added and defaulted to none
 - Removes `redirector` config
-- Adds optional `app` bind
-- Adds default static site to display when no app is bound
+- Adds optional `runtime` bind
+- Adds default static site to display when no runtime is bound
