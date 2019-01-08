@@ -13,7 +13,9 @@ pkg_shasum=b3db2345f50c010b01fe041b4e0f66c5aa28eb325135136f153e18da01583ad5
 pkg_deps=(
   core/coreutils
   core/curl
+  core/gcc-libs
   core/glibc
+  core/icu
   core/libxml2
   core/libjpeg-turbo
   core/libpng
@@ -65,6 +67,7 @@ do_build() {
   ./configure --prefix="$pkg_prefix" \
     --enable-exif \
     --enable-fpm \
+    --enable-intl \
     --with-fpm-user="${pkg_svc_user}" \
     --with-fpm-group="${pkg_svc_group}" \
     --with-readline="$(pkg_path_for readline)" \
