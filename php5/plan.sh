@@ -84,7 +84,8 @@ do_build() {
     --with-openssl="$(pkg_path_for openssl)" \
     --with-png-dir="$(pkg_path_for libpng)" \
     --with-xmlrpc \
-    --with-zlib="$(pkg_path_for zlib)"
+    --with-zlib="$(pkg_path_for zlib)" \
+    --enable-zip
   make
 }
 
