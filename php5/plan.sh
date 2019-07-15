@@ -35,29 +35,38 @@ pkg_lib_dirs=(lib)
 pkg_include_dirs=(include)
 pkg_interpreters=(bin/php)
 
-apcu_version=4.0.11
-apcu_source=https://github.com/krakjoe/apcu/archive/v${apcu_version}.tar.gz
-apcu_filename=apcu-${apcu_version}.tar.gz
-apcu_shasum=bf1d78d4211c6fde6d29bfa71947999efe0ba0c50bdc99af3f646e080f74e3a4
-apcu_dirname=apcu-${apcu_version}
+ext_apcu_version=4.0.11
+ext_apcu_source=https://github.com/krakjoe/apcu/archive/v${ext_apcu_version}.tar.gz
+ext_apcu_filename=apcu-${ext_apcu_version}.tar.gz
+ext_apcu_shasum=bf1d78d4211c6fde6d29bfa71947999efe0ba0c50bdc99af3f646e080f74e3a4
+ext_apcu_dirname=apcu-${ext_apcu_version}
+
+ext_xdebug_version=2.5.5
+ext_xdebug_source=https://github.com/xdebug/xdebug/archive/XDEBUG_${ext_xdebug_version//\./_}.tar.gz
+ext_xdebug_filename=xdebug-XDEBUG_${ext_xdebug_version//\./_}.tar.gz
+ext_xdebug_shasum=77faf3bc49ca85d9b67ae2aa9d9cc4b017544f2566e918bf90fe23d68e044244
+ext_xdebug_dirname=xdebug-XDEBUG_${ext_xdebug_version//\./_}
 
 do_download() {
   do_default_download
 
-  download_file $apcu_source $apcu_filename $apcu_shasum
+  download_file $ext_apcu_source $ext_apcu_filename $ext_apcu_shasum
+  download_file $ext_xdebug_source $ext_xdebug_filename $ext_xdebug_shasum
 }
 
 do_verify() {
   do_default_verify
 
-  verify_file $apcu_filename $apcu_shasum
+  verify_file $ext_apcu_filename $ext_apcu_shasum
+  verify_file $ext_xdebug_filename $ext_xdebug_shasum
 }
 
 do_unpack() {
   do_default_unpack
 
-  unpack_file $apcu_filename
-  mv "$HAB_CACHE_SRC_PATH/$apcu_dirname" "$HAB_CACHE_SRC_PATH/$pkg_dirname/ext/apcu"
+  unpack_file $ext_apcu_filename
+  mv "$HAB_CACHE_SRC_PATH/$ext_apcu_dirname" "$HAB_CACHE_SRC_PATH/$pkg_dirname/ext/apcu"
+  unpack_file $ext_xdebug_filename
 }
 
 do_build() {
@@ -87,6 +96,8 @@ do_build() {
     --with-zlib="$(pkg_path_for zlib)" \
     --enable-zip
   make
+
+  # xdebug can't be build until after php is installed to $pkg_prefix
 }
 
 do_install() {
@@ -98,6 +109,21 @@ do_install() {
   mv "$pkg_prefix/etc/php-fpm.conf.default" "$pkg_prefix/etc/php-fpm.conf"
   # Run as the hab user by default, as it's more likely to exist than nobody.
   sed -i "s/nobody/hab/g" "$pkg_prefix/etc/php-fpm.conf"
+
+  # make and install xdebug extension
+  export PATH="${PATH}:${pkg_prefix}/bin"
+  build_line "Added php binaries to PATH: ${pkg_prefix}/bin"
+
+  pushd "$HAB_CACHE_SRC_PATH/$ext_xdebug_dirname" > /dev/null
+
+  build_line "Building ${ext_xdebug_dirname}"
+  phpize
+  ./configure --enable-xdebug
+  make
+
+  build_line "Installing ${ext_xdebug_dirname}"
+  make install
+  popd > /dev/null
 }
 
 do_check() {
