@@ -20,6 +20,7 @@ pkg_deps=(
   core/libxml2
   core/libzip
   core/openssl
+  core/postgresql11-client
   core/readline
   core/zip
   core/zlib
@@ -82,6 +83,7 @@ do_build() {
     --enable-opcache \
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
+    --with-pdo-pgsql="$(pkg_path_for postgresql11-client)" \
     --with-readline="$(pkg_path_for readline)" \
     --with-curl="$(pkg_path_for curl)" \
     --with-gd \
@@ -130,5 +132,3 @@ do_install() {
 do_check() {
   make test
 }
-
-    --with-gettext="$(pkg_path_for glibc)" \
