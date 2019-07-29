@@ -47,9 +47,9 @@ ext_apcu_dirname=apcu-${ext_apcu_version}
 
 ext_xdebug_version=2.7.2
 ext_xdebug_source=https://github.com/xdebug/xdebug/archive/${ext_xdebug_version}.tar.gz
-ext_xdebug_filename=xdebug-XDEBUG_${ext_xdebug_version//\./_}.tar.gz
+ext_xdebug_filename=xdebug-${ext_xdebug_version}.tar.gz
 ext_xdebug_shasum=b2aeb55335c5649034fe936abb90f61df175c4f0a0f0b97a219b3559541edfbd
-ext_xdebug_dirname=xdebug-XDEBUG_${ext_xdebug_version//\./_}
+ext_xdebug_dirname=xdebug-${ext_xdebug_version}
 
 do_download() {
   do_default_download
@@ -75,6 +75,7 @@ do_unpack() {
 
 do_build() {
   ./configure --prefix="${pkg_prefix}" \
+    --with-config-file-path="${pkg_svc_config_install_path}" \
     --enable-exif \
     --enable-fpm \
     --with-fpm-user=hab \

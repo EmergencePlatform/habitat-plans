@@ -1,0 +1,3 @@
+#!/bin/bash -e
+
+# placeholder to get config_install/php.ini rendered
