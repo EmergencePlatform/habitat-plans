@@ -38,6 +38,21 @@ tcp_nodelay = "on"
 # http.keepalive_timeout: Timeout on client connection keepalive, in seconds. Default = 75
 keepalive_timeout = 60
 
+# http.client_header_timeout: Defines a timeout for reading client request header. Default = 60s
+client_header_timeout = "10m"
+
+# http.client_body_timeout: Defines a timeout for reading client request body. Default = 60s
+client_body_timeout = "10m"
+
+# http.client_max_body_size: Sets the maximum allowed size of the client request body, specified in the “Content-Length” request header field. Default = 1m
+client_max_body_size = "200m"
+
+# http.send_timeout: Sets a timeout for transmitting a response to the client. Default = 60s
+send_timeout = "10m"
+
+# http.fastcgi_read_timeout: Defines a timeout for reading a response from the FastCGI server. Default = 6h
+fastcgi_read_timeout = "6h"
+
 # optional access log
 access_log = ""
 
