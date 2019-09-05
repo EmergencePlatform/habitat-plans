@@ -1,7 +1,7 @@
 pkg_name=php5
 pkg_distname=php
 pkg_origin=emergence
-pkg_version=5.6.39
+pkg_version=5.6.40
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("PHP-3.01")
 pkg_upstream_url=http://php.net/
@@ -9,7 +9,7 @@ pkg_description="PHP is a popular general-purpose scripting language that is esp
 pkg_source="https://php.net/get/${pkg_distname}-${pkg_version}.tar.xz/from/this/mirror"
 pkg_filename="${pkg_distname}-${pkg_version}.tar.xz"
 pkg_dirname="${pkg_distname}-${pkg_version}"
-pkg_shasum=b3db2345f50c010b01fe041b4e0f66c5aa28eb325135136f153e18da01583ad5
+pkg_shasum=1369a51eee3995d7fbd1c5342e5cc917760e276d561595b6052b21ace2656d1c
 pkg_deps=(
   core/bzip2
   core/coreutils
