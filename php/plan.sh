@@ -82,8 +82,8 @@ do_build() {
     --enable-exif \
     --enable-fpm \
     --enable-apcu \
-    --with-fpm-user=hab \
-    --with-fpm-group=hab \
+    --with-fpm-user="${pkg_svc_user}" \
+    --with-fpm-group="${pkg_svc_group}" \
     --enable-mbstring \
     --enable-opcache \
     --with-mysqli=mysqlnd \
