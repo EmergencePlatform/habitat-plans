@@ -74,10 +74,14 @@ do_unpack() {
 }
 
 do_build() {
+  rm aclocal.m4
+  ./buildconf --force
+
   ./configure --prefix="${pkg_prefix}" \
     --with-config-file-path="${pkg_svc_config_install_path}" \
     --enable-exif \
     --enable-fpm \
+    --enable-apcu \
     --with-fpm-user=hab \
     --with-fpm-group=hab \
     --enable-mbstring \
