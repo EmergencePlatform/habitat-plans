@@ -3,30 +3,35 @@ pkg_distname=php
 pkg_origin=emergence
 pkg_version=5.6.39
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
-pkg_license=('PHP-3.01')
+pkg_license=("PHP-3.01")
 pkg_upstream_url=http://php.net/
 pkg_description="PHP is a popular general-purpose scripting language that is especially suited to web development."
-pkg_source=https://php.net/get/${pkg_distname}-${pkg_version}.tar.bz2/from/this/mirror
-pkg_filename=${pkg_distname}-${pkg_version}.tar.bz2
-pkg_dirname=${pkg_distname}-${pkg_version}
+pkg_source="https://php.net/get/${pkg_distname}-${pkg_version}.tar.xz/from/this/mirror"
+pkg_filename="${pkg_distname}-${pkg_version}.tar.xz"
+pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_shasum=b3db2345f50c010b01fe041b4e0f66c5aa28eb325135136f153e18da01583ad5
 pkg_deps=(
+  core/bzip2
   core/coreutils
   core/curl
-  core/gcc-libs
   core/glibc
   core/icu
-  core/libxml2
   core/libjpeg-turbo
   core/libpng
+  core/libxml2
+  core/libzip
   core/openssl
+  core/postgresql11-client
   core/readline
+  core/zip
   core/zlib
+  core/gcc-libs
 )
 pkg_build_deps=(
   core/autoconf
-  core/bison2
+  core/bison
   core/gcc
+  core/libgd
   core/make
   core/re2c
 )
@@ -73,19 +78,19 @@ do_build() {
   rm aclocal.m4
   ./buildconf --force
 
-  ./configure --prefix="$pkg_prefix" \
+  ./configure --prefix="${pkg_prefix}" \
+    --with-config-file-path="${pkg_svc_config_install_path}" \
     --enable-exif \
     --enable-fpm \
-    --enable-intl \
+    --enable-apcu \
     --with-fpm-user="${pkg_svc_user}" \
     --with-fpm-group="${pkg_svc_group}" \
-    --with-readline="$(pkg_path_for readline)" \
-    --with-gettext="$(pkg_path_for glibc)" \
-    --enable-apcu \
     --enable-mbstring \
     --enable-opcache \
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
+    --with-pdo-pgsql="$(pkg_path_for postgresql11-client)" \
+    --with-readline="$(pkg_path_for readline)" \
     --with-curl="$(pkg_path_for curl)" \
     --with-gd \
     --with-jpeg-dir="$(pkg_path_for libjpeg-turbo)" \
@@ -94,8 +99,13 @@ do_build() {
     --with-png-dir="$(pkg_path_for libpng)" \
     --with-xmlrpc \
     --with-zlib="$(pkg_path_for zlib)" \
-    --enable-zip
-  make
+    --enable-zip \
+    --with-libzip="$(pkg_path_for libzip)" \
+    --with-bz2="$(pkg_path_for bzip2)" \
+    --with-gettext="$(pkg_path_for glibc)" \
+    --enable-intl
+
+  make -j "$(nproc)"
 
   # xdebug can't be build until after php is installed to $pkg_prefix
 }
@@ -106,9 +116,8 @@ do_install() {
   # Modify PHP-FPM config so it will be able to run out of the box. To run a real
   # PHP-FPM application you would want to supply your own config with
   # --fpm-config <file>.
-  mv "$pkg_prefix/etc/php-fpm.conf.default" "$pkg_prefix/etc/php-fpm.conf"
-  # Run as the hab user by default, as it's more likely to exist than nobody.
-  sed -i "s/nobody/hab/g" "$pkg_prefix/etc/php-fpm.conf"
+  mv "${pkg_prefix}/etc/php-fpm.conf.default" "${pkg_prefix}/etc/php-fpm.conf"
+
 
   # make and install xdebug extension
   export PATH="${PATH}:${pkg_prefix}/bin"
