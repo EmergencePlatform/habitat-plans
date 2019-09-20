@@ -1,3 +1,4 @@
 #!/bin/bash -e
 
-# placeholder to get config_install/php.ini rendered
+mkdir -p "/hab/svc/php/var/extensions-{{ pkg.env.PHP_API_VERSION }}/"
+ln -s "{{pkg.path}}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}"/* "/hab/svc/php/var/extensions-{{ pkg.env.PHP_API_VERSION }}/"
