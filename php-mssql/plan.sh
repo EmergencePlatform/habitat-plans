@@ -32,26 +32,26 @@ do_setup_environment() {
 }
 
 do_build() {
-    pushd "source" > /dev/null
-    bash packagize.sh
+  pushd "source" > /dev/null
+  bash packagize.sh
 
-    pushd "sqlsrv" > /dev/null
-    phpize
-    ./configure
-    make
-    popd > /dev/null
+  pushd "sqlsrv" > /dev/null
+  phpize
+  ./configure
+  make
+  popd > /dev/null
 
-    pushd "pdo_sqlsrv" > /dev/null
-    phpize
-    ./configure
-    make
-    popd > /dev/null
+  pushd "pdo_sqlsrv" > /dev/null
+  phpize
+  ./configure
+  make
+  popd > /dev/null
 
-    popd > /dev/null
+  popd > /dev/null
 }
 
 do_install() {
-    extensions_dir="${pkg_prefix}/extensions-${PHP_API_VERSION}"
-    mkdir "${extensions_dir}"
-    cp -v source/*/modules/*.so "${extensions_dir}"
+  extensions_dir="${pkg_prefix}/extensions-${PHP_API_VERSION}"
+  mkdir "${extensions_dir}"
+  cp -v source/*/modules/*.so "${extensions_dir}"
 }
