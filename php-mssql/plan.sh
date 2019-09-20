@@ -22,7 +22,6 @@ pkg_build_deps=(
   core/gcc
   core/grep
   core/make
-  core/mssql
   core/re2c
   core/sed
 )
