@@ -11,6 +11,7 @@ pkg_shasum="ff05186ea1d33ecd7b258b3a453896cabaa9e944598e7dddb0d6dbe3c8ef1b48"
 pkg_deps=(
   core/gcc-libs
   core/libtool
+  core/msodbcsql17
   core/unixodbc
   emergence/php
 )
@@ -25,6 +26,10 @@ pkg_build_deps=(
   core/re2c
   core/sed
 )
+
+do_setup_environment() {
+  set_runtime_env ODBCSYSINI "${pkg_svc_config_install_path}"
+}
 
 do_build() {
     pushd "source" > /dev/null
