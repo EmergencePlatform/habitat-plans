@@ -30,6 +30,7 @@ pkg_build_deps=(
   core/autoconf
   core/bison
   core/gcc
+  core/grep
   core/libgd
   core/make
   core/re2c
@@ -74,9 +75,10 @@ do_unpack() {
 }
 
 do_build() {
+  set_runtime_env PHP_API_VERSION "$(grep PHP_API_VERSION ./main/php.h | cut -d' ' -f 3)"
+
   rm aclocal.m4
   ./buildconf --force
-
   ./configure --prefix="${pkg_prefix}" \
     --with-config-file-path="${pkg_svc_config_install_path}" \
     --enable-exif \
