@@ -13,6 +13,7 @@ pkg_deps=(
   core/bzip2
   core/coreutils
   core/curl
+  core/gcc-libs
   core/glibc
   core/icu
   core/libjpeg-turbo
@@ -24,7 +25,6 @@ pkg_deps=(
   core/readline
   core/zip
   core/zlib
-  core/gcc-libs
 )
 pkg_build_deps=(
   core/autoconf
