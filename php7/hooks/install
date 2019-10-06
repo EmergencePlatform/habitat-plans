@@ -4,7 +4,7 @@ mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}"
 
 upstream_extensions_dir='{{pkgPathFor "emergence/php7"}}'
 if [ -d "${upstream_extensions_dir}" ]; then
-    ln -sfv '${upstream_extensions_dir}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}'/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+    ln -sfv "${upstream_extensions_dir}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
 fi
 
-ln -sfv '{{pkg.path}}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}'/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+ln -sfv "{{pkg.path}}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
