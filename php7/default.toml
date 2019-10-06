@@ -7,3 +7,27 @@ remote_enable=1
 remote_autostart=1
 remote_port=9000
 remote_connect_back=1
+
+[pm]
+type = "dynamic"
+max_children = 50
+start_servers = 5
+min_spare_servers = 1
+max_spare_servers = 10
+
+[error]
+reporting = "E_ALL & ~E_NOTICE"
+
+[limit]
+memory = "200M"
+post = "200M"
+
+[cache]
+size = "512M"
+
+[path]
+ping = "/.well-known/php-fpm/ping"
+status = "/.well-known/php-fpm/status"
+
+[network]
+port = 9123
