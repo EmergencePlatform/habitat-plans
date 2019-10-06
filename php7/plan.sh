@@ -1,4 +1,4 @@
-pkg_name=php
+pkg_name=php7
 pkg_origin=emergence
 pkg_version=7.3.9
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
