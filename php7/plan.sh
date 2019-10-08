@@ -79,6 +79,7 @@ do_build() {
   php_api_version="$(grep PHP_API_VERSION ./main/php.h | cut -d' ' -f 3)"
   set_runtime_env PHP_API_VERSION "${php_api_version}"
   set_runtime_env PHP_EXTENSION_DIR "${pkg_svc_var_path}/extensions-${php_api_version}"
+  push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/lib/php/extensions/no-debug-non-zts-${php_api_version}"
 
   rm aclocal.m4
   ./buildconf --force

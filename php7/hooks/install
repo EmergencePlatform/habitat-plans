@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
-mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}"
+mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}" || {
+    echo "Unable to create PHP_EXTENSION_DIR, skipping extension linking: {{ pkg.env.PHP_EXTENSION_DIR }}"
+    exit 0
+}
 
-upstream_extensions_dir='{{pkgPathFor "emergence/php7"}}'
-if [ -d "${upstream_extensions_dir}" ]; then
-    ln -sfv "${upstream_extensions_dir}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
-fi
-
-ln -sfv "{{pkg.path}}/lib/php/extensions/no-debug-non-zts-{{ pkg.env.PHP_API_VERSION }}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+for php_extension_source in ${PHP_EXTENSION_SOURCES//:/ }; do
+    if [ -d "${php_extension_source}" ]; then
+        ln -sfv "${php_extension_source}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+    fi
+done
