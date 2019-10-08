@@ -58,3 +58,7 @@ access_log = ""
 
 [http.listen]
 port = 80
+
+[server]
+root = ""
+index = "index.html"
