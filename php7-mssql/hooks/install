@@ -1,3 +1,6 @@
 #!/bin/bash -e
 
-ln -sf "{{ pkg.path }}/extensions-{{ pkg.env.PHP_API_VERSION }}"/* "/hab/svc/php/var/extensions-{{ pkg.env.PHP_API_VERSION }}/"
+pkg_extensions_dir="{{ pkg.path }}/extensions-{{ pkg.env.PHP_API_VERSION }}"
+if [ -d "{{ pkg.env.PHP_EXTENSION_DIR }}" ] && [ -d "${pkg_extensions_dir}" ]; then
+    ln -sfv "${pkg_extensions_dir}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+fi
