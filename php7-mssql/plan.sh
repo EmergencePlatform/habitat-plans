@@ -1,4 +1,4 @@
-pkg_name=php-mssql
+pkg_name=php7-mssql
 pkg_origin=emergence
 pkg_version=5.6.1
 pkg_maintainer="Jarvus Innovations <hello@jarv.us>"
@@ -13,7 +13,7 @@ pkg_deps=(
   core/libtool
   core/msodbcsql17
   core/unixodbc
-  emergence/php
+  emergence/php7
 )
 pkg_build_deps=(
   core/autoconf
