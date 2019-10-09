@@ -2,6 +2,10 @@
 
 exec 2>&1
 
+set -a
+. "{{pkg.svc_config_path}}/env"
+set +a
+
 exec {{pkgPathFor "emergence/php7"}}/sbin/php-fpm \
     --nodaemonize \
     --fpm-config {{pkg.svc_config_path}}/php-fpm.conf \
