@@ -17,6 +17,7 @@ max_spare_servers = 10
 
 [error]
 reporting = "E_ALL & ~E_NOTICE"
+display = false
 
 [limit]
 memory = "200M"
@@ -31,3 +32,7 @@ status = "/.well-known/php-fpm/status"
 
 [network]
 port = 9123
+
+[access]
+log = false
+format = ""
