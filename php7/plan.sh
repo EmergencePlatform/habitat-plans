@@ -88,7 +88,6 @@ do_build() {
 
   set_runtime_env PHP_EXTENSION_DIR "${pkg_svc_config_install_path}/extensions-${php_zend_api_version}"
   push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/lib/php/extensions/no-debug-non-zts-${php_zend_api_version}"
-  attach
 
   rm aclocal.m4
   ./buildconf --force
