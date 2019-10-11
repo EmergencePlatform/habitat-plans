@@ -1,3 +1,5 @@
+default_timezone = "America/New_York"
+
 [extensions.xdebug]
 enabled=false
 zend=true
