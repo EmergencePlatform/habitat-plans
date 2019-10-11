@@ -39,10 +39,15 @@ else
 fi
 
 
+if [ -z "${CONTENT_LENGTH}" ]; then
+    STDIN="$@"
+    export CONTENT_LENGTH="${#STDIN}"
+fi
+
+
 export SCRIPT_FILENAME="${SCRIPT_NAME}"
 
 
 echo "${STDIN}" | exec {{pkgPathFor "core/libfcgi"}}/bin/cgi-fcgi \
     -bind \
-    -connect {{ sys.ip }}:{{ cfg.network.port }} \
-    $@
+    -connect {{ sys.ip }}:{{ cfg.network.port }}
