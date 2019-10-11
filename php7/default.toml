@@ -1,5 +1,9 @@
 default_timezone = "America/New_York"
 
+[extensions.opcache]
+enabled=true
+zend=true
+
 [extensions.xdebug]
 enabled=false
 zend=true
