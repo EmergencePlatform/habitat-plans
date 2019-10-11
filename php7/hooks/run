@@ -6,7 +6,7 @@ set -a
 . "{{pkg.svc_config_path}}/env"
 set +a
 
-exec {{pkgPathFor "emergence/php7"}}/sbin/php-fpm \
+exec {{ pkg.env.PHP_FPM }} \
     --nodaemonize \
     --fpm-config {{pkg.svc_config_path}}/php-fpm.conf \
     -c {{pkg.svc_path}}/config_install/php.ini

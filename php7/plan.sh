@@ -53,6 +53,10 @@ ext_xdebug_filename=xdebug-${ext_xdebug_version}.tar.gz
 ext_xdebug_shasum=b2aeb55335c5649034fe936abb90f61df175c4f0a0f0b97a219b3559541edfbd
 ext_xdebug_dirname=xdebug-${ext_xdebug_version}
 
+do_setup_environment() {
+  set_runtime_env PHP_FPM "${pkg_prefix}/sbin/php-fpm"
+}
+
 do_download() {
   do_default_download
 
