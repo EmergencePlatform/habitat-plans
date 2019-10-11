@@ -6,7 +6,12 @@ set -a
 . "{{pkg.svc_config_path}}/env"
 set +a
 
+php_ini_path="{{pkg.svc_config_path}}/php.ini"
+if [ ! -f "${php_ini_path}" ]; then
+    php_ini_path="{{pkg.svc_path}}/config_install/php.ini"
+fi
+
 exec {{ pkg.env.PHP_FPM }} \
     --nodaemonize \
     --fpm-config {{pkg.svc_config_path}}/php-fpm.conf \
-    -c {{pkg.svc_path}}/config_install/php.ini
+    -c "${php_ini_path}"
