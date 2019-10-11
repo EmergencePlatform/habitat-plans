@@ -1,9 +1,0 @@
-[extensions.xdebug]
-enabled=false
-zend=true
-
-[extensions.xdebug.config]
-remote_enable=1
-remote_autostart=1
-remote_port=9000
-remote_connect_back=1

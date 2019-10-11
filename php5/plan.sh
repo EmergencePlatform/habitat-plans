@@ -1,4 +1,4 @@
-source ../php/plan.sh
+source "${PLAN_CONTEXT}/../php7/plan.sh"
 
 # configure for version 5.6
 pkg_name=php5
@@ -22,3 +22,11 @@ ext_xdebug_source=https://github.com/xdebug/xdebug/archive/XDEBUG_${ext_xdebug_v
 ext_xdebug_filename=xdebug-XDEBUG_${ext_xdebug_version//\./_}.tar.gz
 ext_xdebug_shasum=77faf3bc49ca85d9b67ae2aa9d9cc4b017544f2566e918bf90fe23d68e044244
 ext_xdebug_dirname=xdebug-XDEBUG_${ext_xdebug_version//\./_}
+
+# copy config/hooks from php7
+do_build_config() {
+  do_default_build_config
+
+  build_line "Merging php7 config"
+  cp -nrv "${PLAN_CONTEXT}/../php7"/{config_install,config,hooks,default.toml} "${pkg_prefix}/"
+}
