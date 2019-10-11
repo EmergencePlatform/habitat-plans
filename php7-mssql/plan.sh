@@ -32,7 +32,7 @@ do_setup_environment() {
 }
 
 do_before() {
-  # adjust PHP_EXTENSION_DIR after env is initially built
+  # append PHP_EXTENSION_SOURCES after env is initially built
   push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/extensions-${PHP_API_VERSION}"
 }
 
