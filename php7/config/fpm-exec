@@ -42,7 +42,7 @@ fi
 export SCRIPT_FILENAME="${SCRIPT_NAME}"
 
 
-echo "${STDIN}" | exec {{pkgPathFor "jarvus/libfcgi"}}/bin/cgi-fcgi \
+echo "${STDIN}" | exec {{pkgPathFor "core/libfcgi"}}/bin/cgi-fcgi \
     -bind \
     -connect {{ sys.ip }}:{{ cfg.network.port }} \
     $@

@@ -17,6 +17,7 @@ pkg_deps=(
   core/gcc-libs
   core/glibc
   core/icu
+  core/libfcgi
   core/libjpeg-turbo
   core/libpng
   core/libxml2
