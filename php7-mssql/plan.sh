@@ -33,7 +33,7 @@ do_setup_environment() {
 
 do_before() {
   # append PHP_EXTENSION_SOURCES after env is initially built
-  push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/extensions-${PHP_API_VERSION}"
+  push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/extensions-${PHP_ZEND_API_VERSION}"
 }
 
 do_build() {
@@ -56,7 +56,7 @@ do_build() {
 }
 
 do_install() {
-  extensions_dir="${pkg_prefix}/extensions-${PHP_API_VERSION}"
+  extensions_dir="${pkg_prefix}/extensions-${PHP_ZEND_API_VERSION}"
   mkdir "${extensions_dir}"
   cp -v source/*/modules/*.so "${extensions_dir}"
 }

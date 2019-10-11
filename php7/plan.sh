@@ -80,10 +80,14 @@ do_unpack() {
 }
 
 do_build() {
-  php_api_version="$(grep PHP_API_VERSION ./main/php.h | cut -d' ' -f 3)"
+  php_api_version="$(grep '#define PHP_API_VERSION' ./main/php.h | cut -d' ' -f 3)"
   set_runtime_env PHP_API_VERSION "${php_api_version}"
-  set_runtime_env PHP_EXTENSION_DIR "${pkg_svc_var_path}/extensions-${php_api_version}"
-  push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/lib/php/extensions/no-debug-non-zts-${php_api_version}"
+  php_zend_api_version="$(grep '#define ZEND_MODULE_API_NO' ./Zend/zend_modules.h | cut -d' ' -f 3)"
+  set_runtime_env PHP_ZEND_API_VERSION "${php_zend_api_version}"
+
+  set_runtime_env PHP_EXTENSION_DIR "${pkg_svc_config_install_path}/extensions-${php_zend_api_version}"
+  push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/lib/php/extensions/no-debug-non-zts-${php_zend_api_version}"
+  attach
 
   rm aclocal.m4
   ./buildconf --force
