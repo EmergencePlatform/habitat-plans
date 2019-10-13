@@ -1,5 +1,6 @@
-#!/bin/bash -e
+#!{{pkgPathFor "core/bash"}}/bin/bash -e
 
+exec 2>&1
 
 # test that php-fpm responds on path.ping
 

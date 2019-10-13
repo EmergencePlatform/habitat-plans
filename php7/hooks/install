@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!{{pkgPathFor "core/bash"}}/bin/bash -e
+
+exec 2>&1
 
 mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}" || {
     echo "Unable to create PHP_EXTENSION_DIR, skipping extension linking: {{ pkg.env.PHP_EXTENSION_DIR }}"

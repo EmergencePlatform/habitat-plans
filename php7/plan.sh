@@ -11,6 +11,7 @@ pkg_filename="${pkg_distname}-${pkg_version}.tar.xz"
 pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_shasum=4007f24a39822bef2805b75c625551d30be9eeed329d52eb0838fa5c1b91c1fd
 pkg_deps=(
+  core/bash
   core/bzip2
   core/coreutils
   core/curl
