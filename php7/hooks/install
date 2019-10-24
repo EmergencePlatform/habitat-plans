@@ -2,7 +2,7 @@
 
 exec 2>&1
 
-mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}" || {
+mkdir -vp "{{ pkg.env.PHP_EXTENSION_DIR }}" || {
     echo "Unable to create PHP_EXTENSION_DIR, skipping extension linking: {{ pkg.env.PHP_EXTENSION_DIR }}"
     exit 0
 }
@@ -10,5 +10,7 @@ mkdir -p "{{ pkg.env.PHP_EXTENSION_DIR }}" || {
 for php_extension_source in ${PHP_EXTENSION_SOURCES//:/ }; do
     if [ -d "${php_extension_source}" ]; then
         ln -sfv "${php_extension_source}"/* "{{ pkg.env.PHP_EXTENSION_DIR }}/"
+    else
+        echo "Skipping nonexistant source directory ${php_extension_source}"
     fi
 done
