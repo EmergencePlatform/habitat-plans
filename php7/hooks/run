@@ -2,6 +2,9 @@
 
 exec 2>&1
 
+# re-run install script
+{{pkg.svc_path}}/hooks/install
+
 set -a
 . "{{pkg.svc_config_path}}/env"
 set +a
