@@ -28,5 +28,5 @@ do_build_config() {
   do_default_build_config
 
   build_line "Merging php7 config"
-  cp -nrv "${PLAN_CONTEXT}/../php7"/{config_install,config,hooks,default.toml} "${pkg_prefix}/"
+  cp -nrvL "${PLAN_CONTEXT}/../php7"/{config_install,config,hooks,default.toml} "${pkg_prefix}/"
 }
