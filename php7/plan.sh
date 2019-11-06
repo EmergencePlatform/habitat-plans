@@ -28,6 +28,8 @@ pkg_deps=(
   core/readline
   core/zip
   core/zlib
+  jarvus/ghostscript
+  jarvus/imagemagick
 )
 pkg_build_deps=(
   core/autoconf
@@ -49,6 +51,12 @@ ext_apcu_filename=apcu-${ext_apcu_version}.tar.gz
 ext_apcu_shasum=e6f6405ec47c2b466c968ee6bb15fc3abccb590b5fd40f579fceebeb15da6c4c
 ext_apcu_dirname=apcu-${ext_apcu_version}
 
+ext_imagick_version=3.4.4
+ext_imagick_source=https://github.com/Imagick/imagick/archive/${ext_imagick_version}.tar.gz
+ext_imagick_filename=imagick-${ext_imagick_version}.tar.gz
+ext_imagick_shasum=8204d228ecbe5f744d625c90364808616127471581227415bca18857af981369
+ext_imagick_dirname=imagick-${ext_imagick_version}
+
 ext_xdebug_version=2.7.2
 ext_xdebug_source=https://github.com/xdebug/xdebug/archive/${ext_xdebug_version}.tar.gz
 ext_xdebug_filename=xdebug-${ext_xdebug_version}.tar.gz
@@ -63,6 +71,7 @@ do_download() {
   do_default_download
 
   download_file $ext_apcu_source $ext_apcu_filename $ext_apcu_shasum
+  download_file $ext_imagick_source $ext_imagick_filename $ext_imagick_shasum
   download_file $ext_xdebug_source $ext_xdebug_filename $ext_xdebug_shasum
 }
 
@@ -70,6 +79,7 @@ do_verify() {
   do_default_verify
 
   verify_file $ext_apcu_filename $ext_apcu_shasum
+  verify_file $ext_imagick_filename $ext_imagick_shasum
   verify_file $ext_xdebug_filename $ext_xdebug_shasum
 }
 
@@ -77,7 +87,9 @@ do_unpack() {
   do_default_unpack
 
   unpack_file $ext_apcu_filename
-  mv "$HAB_CACHE_SRC_PATH/$ext_apcu_dirname" "$HAB_CACHE_SRC_PATH/$pkg_dirname/ext/apcu"
+  mv "${HAB_CACHE_SRC_PATH}/${ext_apcu_dirname}" "${HAB_CACHE_SRC_PATH}/${pkg_dirname}/ext/apcu"
+  unpack_file $ext_imagick_filename
+  mv "${HAB_CACHE_SRC_PATH}/${ext_imagick_dirname}" "${HAB_CACHE_SRC_PATH}/${pkg_dirname}/ext/imagick"
   unpack_file $ext_xdebug_filename
 }
 
@@ -97,6 +109,7 @@ do_build() {
     --enable-exif \
     --enable-fpm \
     --enable-apcu \
+    --with-imagick="$(pkg_path_for imagemagick)" \
     --with-fpm-user="${pkg_svc_user}" \
     --with-fpm-group="${pkg_svc_group}" \
     --enable-mbstring \
