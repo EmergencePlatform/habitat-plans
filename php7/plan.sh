@@ -15,6 +15,7 @@ pkg_deps=(
   core/bzip2
   core/coreutils
   core/curl
+  jarvus/file/5.34/20191106233749 # get $MAGIC env, replace with core/file after merged: habitat-sh/core-plans#3110
   core/gcc-libs
   core/glibc
   core/icu
