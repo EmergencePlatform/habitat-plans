@@ -2,9 +2,15 @@
 
 if [ $# -lt 2 ]; then
     echo "Usage:"
-    echo "  fcgi-exec [--stdin] request_method script_name [args...]"
-    echo "  fcgi-exec [--stdin] --web request_method \"/web_route?key=value\" [args...]"
+    echo "  fcgi-exec [--stdin] [--headers] request_method script_name [args...]"
+    echo "  fcgi-exec [--stdin] [--headers] --web request_method \"/web_route?key=value\" [args...]"
     exit 1
+fi
+
+
+if [ "$1" == '--headers' ]; then
+    shift
+    print_headers="true"
 fi
 
 
@@ -48,6 +54,18 @@ fi
 export SCRIPT_FILENAME="${SCRIPT_NAME}"
 
 
-echo "${STDIN}" | exec {{pkgPathFor "core/libfcgi"}}/bin/cgi-fcgi \
+response_body_started=""
+
+echo "${STDIN}" | exec '{{pkgPathFor "core/libfcgi"}}/bin/cgi-fcgi' \
     -bind \
-    -connect {{ sys.ip }}:{{ cfg.network.port }}
+    -connect "{{ sys.ip }}:{{ cfg.network.port }}" \
+    | while read line; do
+        if [[ -z "${print_headers}" && -z "${response_body_started}" ]]; then
+            if [[ "${line}" == $'\r' ]]; then
+                response_body_started='true'
+            fi
+            continue;
+        fi
+
+        echo "${line}"
+    done
