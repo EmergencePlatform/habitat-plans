@@ -55,7 +55,7 @@ response_body_started=""
 echo "${STDIN}" | exec '{{pkgPathFor "core/libfcgi"}}/bin/cgi-fcgi' \
     -bind \
     -connect "{{ sys.ip }}:{{ cfg.network.port }}" \
-    | while read line; do
+    | while IFS= read -r line || [ "${line}" ]; do
         if [[ -z "${print_headers}" && -z "${response_body_started}" ]]; then
             if [[ "${line}" == $'\r' ]]; then
                 response_body_started='true'
