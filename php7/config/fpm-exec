@@ -8,16 +8,16 @@ if [ $# -lt 2 ]; then
 fi
 
 
-if [ "$1" == '--headers' ]; then
-    shift
-    print_headers="true"
-fi
-
-
 if [ "$1" == '--stdin' ]; then
     shift
     STDIN="$(cat)"
     export CONTENT_LENGTH="${#STDIN}"
+fi
+
+
+if [ "$1" == '--headers' ]; then
+    shift
+    print_headers="true"
 fi
 
 
