@@ -42,12 +42,8 @@ else
         *) export SCRIPT_NAME="{{ pkg.svc_config_path }}/$1" ;;
     esac
     shift
-fi
 
-
-if [ -z "${CONTENT_LENGTH}" ]; then
-    STDIN="$@"
-    export CONTENT_LENGTH="${#STDIN}"
+    export QUERY_STRING="$*"
 fi
 
 
