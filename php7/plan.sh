@@ -15,7 +15,7 @@ pkg_deps=(
   core/bzip2
   core/coreutils
   core/curl
-  jarvus/file/5.34/20191106233749 # get $MAGIC env, replace with core/file after merged: habitat-sh/core-plans#3110
+  core/file
   core/gcc-libs
   core/glibc
   core/icu
@@ -66,6 +66,7 @@ ext_xdebug_dirname=xdebug-${ext_xdebug_version}
 
 do_setup_environment() {
   set_runtime_env PHP_FPM "${pkg_prefix}/sbin/php-fpm"
+  set_runtime_env MAGIC "$(pkg_path_for file)/share/misc/magic.mgc"
 }
 
 do_download() {
