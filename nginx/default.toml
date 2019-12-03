@@ -53,6 +53,12 @@ send_timeout = "10m"
 # http.fastcgi_read_timeout: Defines a timeout for reading a response from the FastCGI server. Default = 6h
 fastcgi_read_timeout = "6h"
 
+# http.fastcgi_buffer_size: Sets the size of the buffer used for reading the first part of the response received from the FastCGI server. Default = 32k
+fastcgi_buffer_size = "32k"
+
+# http.fastcgi_buffers: Sets the number and size of the buffers used for reading a response from the FastCGI server, for a single connection. Default = 16 16k
+fastcgi_buffers = "16 16k"
+
 # optional access log
 access_log = ""
 
