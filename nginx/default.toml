@@ -75,5 +75,6 @@ port = 80
 keepalive = 32
 
 [default_server]
+charset = "utf-8"
 root = false # defaults to {{pkg.path}}/www
 index = "index.html"
