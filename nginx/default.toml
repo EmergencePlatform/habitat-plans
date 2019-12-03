@@ -78,3 +78,7 @@ keepalive = 32
 charset = "utf-8"
 root = false # defaults to {{pkg.path}}/www
 index = "index.html"
+log_ignore_locations = [
+    "/favicon.ico",
+    "/robots.txt"
+]
