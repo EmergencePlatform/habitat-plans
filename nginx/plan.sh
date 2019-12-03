@@ -19,7 +19,7 @@ pkg_exports=(
 )
 pkg_exposes=(port)
 pkg_binds_optional=(
-  [runtime]="port"
+  [backend]="port"
 )
 
 do_build() {
