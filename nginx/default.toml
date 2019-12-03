@@ -59,11 +59,17 @@ fastcgi_buffer_size = "32k"
 # http.fastcgi_buffers: Sets the number and size of the buffers used for reading a response from the FastCGI server, for a single connection. Default = 16 16k
 fastcgi_buffers = "16 16k"
 
+# http.fastcgi_keep_conn: When this directive is set to the value on, nginx will instruct a FastCGI server to keep connections open. Default = on
+fastcgi_keep_conn = "on"
+
 # optional access log
 access_log = ""
 
 [http.listen]
 port = 80
+
+[upstream]
+keepalive = 32
 
 [server]
 root = ""
