@@ -74,6 +74,6 @@ port = 80
 [upstream]
 keepalive = 32
 
-[server]
-root = ""
+[default_server]
+root = false # defaults to {{pkg.path}}/www
 index = "index.html"
