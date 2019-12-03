@@ -62,6 +62,9 @@ fastcgi_buffers = "16 16k"
 # http.fastcgi_keep_conn: When this directive is set to the value on, nginx will instruct a FastCGI server to keep connections open. Default = on
 fastcgi_keep_conn = "on"
 
+# http.fastcgi_index: Sets a file name that will be appended after a URI that ends with a slash, in the value of the $fastcgi_script_name variable. Default = index.php
+fastcgi_index = "index.php"
+
 # optional access log
 access_log = ""
 
