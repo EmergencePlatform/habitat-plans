@@ -67,5 +67,5 @@ do_install() {
   make install
   mkdir -p "$pkg_prefix/sbin"
   cp "$HAB_CACHE_SRC_PATH/$pkg_dirname/objs/nginx" "$pkg_prefix/sbin"
-  cp -rv "$PLAN_CONTEXT/www" "$pkg_prefix/"
+  cp -rv "$PLAN_CONTEXT/default-web" "$pkg_prefix/"
 }
