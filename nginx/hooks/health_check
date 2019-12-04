@@ -2,5 +2,5 @@
 
 {{# if cfg.default_server.stub_status_path}}
 # test stub_status response
-curl -s http://127.0.0.1{{cfg.default_server.stub_status_path}} | grep "Active connections:"
+curl -s http://{{ sys.ip }}:{{ cfg.http.listen.port }}{{cfg.default_server.stub_status_path}} | grep "Active connections:"
 {{/if}}
