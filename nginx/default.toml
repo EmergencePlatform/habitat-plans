@@ -67,11 +67,15 @@ fastcgi_keep_conn = "on"
 # optional access log
 access_log = ""
 
+# http.ssl_protocols: Enables the specified protocols. Default = TLSv1 TLSv1.1 TLSv1.2
+ssl_protocols = "TLSv1 TLSv1.1 TLSv1.2"
+
 # optional arbitrary configuration lines for http block
 snippet = "# http snippet"
 
 [http.listen]
 port = 80
+ssl_port = 443
 
 [upstream]
 keepalive = 32
@@ -87,6 +91,8 @@ log_ignore_locations = [
     "/favicon.ico",
     "/robots.txt"
 ]
+ssl_certificate = false
+ssl_certificate_key = false
 snippet = '''
 # default_server snippet
 '''
