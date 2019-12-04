@@ -23,6 +23,8 @@ worker_rlimit_nofile = 8192
 # worker_connections: Connections per Worker Process.  Default = 1024
 worker_connections = 1024
 
+# optional arbitrary configuration lines for events block
+snippet = "# events snippet"
 
 #### HTTP Context Configuration
 [http]
@@ -68,11 +70,16 @@ fastcgi_index = "index.php"
 # optional access log
 access_log = ""
 
+# optional arbitrary configuration lines for http block
+snippet = "# http snippet"
+
 [http.listen]
 port = 80
 
 [upstream]
 keepalive = 32
+# optional arbitrary configuration lines for http block
+snippet = "# upstream snippet"
 
 [default_server]
 enabled = true
@@ -83,3 +90,6 @@ log_ignore_locations = [
     "/favicon.ico",
     "/robots.txt"
 ]
+snippet = '''
+# default_server snippet
+'''
