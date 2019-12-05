@@ -85,7 +85,7 @@ snippet = "# upstream snippet"
 [default_server]
 enabled = true
 charset = "utf-8"
-root = false # defaults to {{pkg.path}}/www
+root = false # defaults to {{pkg.path}}/default-web
 index = "index.html"
 log_ignore_locations = [
     "/favicon.ico",
