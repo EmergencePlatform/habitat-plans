@@ -96,4 +96,4 @@ ssl_certificate_key = false
 snippet = '''
 # default_server snippet
 '''
-stub_status_path = "/stub_status"
+stub_status_path = "/.well-known/nginx/status"
