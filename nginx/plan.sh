@@ -16,6 +16,7 @@ pkg_svc_run="nginx"
 pkg_svc_user="root"
 pkg_exports=(
   [port]=http.listen.port
+  [status_path]=default_server.stub_status_path
 )
 pkg_exposes=(port)
 pkg_binds_optional=(
