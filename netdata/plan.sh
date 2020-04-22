@@ -24,6 +24,10 @@ pkg_binds_optional=(
   [phpfpm]="port status_path"
 )
 
+do_before() {
+  push_runtime_env NETDATA_PKG_PLUGINS_DIR "${pkg_prefix}/plugins.d"
+}
+
 do_build() {
   return 0
 }
@@ -41,6 +45,9 @@ do_build_config() {
     "$(pkg_path_for ${pkg_wrapped_ident})/default.toml" \
     "${PLAN_CONTEXT}/default.toml" \
     > "${pkg_prefix}/default.toml"
+
+  build_line "Copying local plugins.d"
+  cp -rv "${PLAN_CONTEXT}/plugins.d" "${pkg_prefix}/"
 }
 
 do_strip() {
