@@ -33,7 +33,7 @@ while true; do
         key="${line%%$'\t'*}"
         value="${line#*$'\t'}"
         CACHE_STATUS["${key}"]="${value}"
-    done < <(hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:cache)
+    done < <(env -i hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:cache)
 
     echo "BEGIN gatekeeper.cache_status"
     echo "SET application=${CACHE_STATUS[application]}"
@@ -55,7 +55,7 @@ while true; do
         fi
 
         echo "SET ${key}=${value}"
-    done < <(hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:endpoint-requests)
+    done < <(env -i hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:endpoint-requests)
 
     echo "END"
 
