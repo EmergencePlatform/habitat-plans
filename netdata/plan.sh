@@ -8,6 +8,7 @@ pkg_build_deps=(
 )
 pkg_wrapped_ident="jarvus/netdata"
 pkg_deps=(
+  core/bash
   "${pkg_wrapped_ident}"
 )
 
@@ -48,6 +49,7 @@ do_build_config() {
 
   build_line "Copying local plugins.d"
   cp -rv "${PLAN_CONTEXT}/plugins.d" "${pkg_prefix}/"
+  fix_interpreter "${pkg_prefix}/plugins.d/*" core/bash bin/bash
 }
 
 do_strip() {
