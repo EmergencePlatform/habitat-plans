@@ -4,6 +4,9 @@ default_timezone = "America/New_York"
 enabled=true
 zend=true
 
+[extensions.opcache.config]
+validate_timestamps = true
+
 [extensions.xdebug]
 enabled=false
 zend=true
