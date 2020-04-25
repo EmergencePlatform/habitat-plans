@@ -1,0 +1,10 @@
+--- sapi/fpm/fpm/fpm_main.c.orig	2020-04-25 19:28:35.590135417 +0000
++++ sapi/fpm/fpm/fpm_main.c	2020-04-25 19:29:12.649792453 +0000
+@@ -1567,6 +1567,7 @@
+ 
+ 		fcgi_flush(request, 1);
+ 		fcgi_close(request, 0, 0);
++		request->closed = 1;
+ 		RETURN_TRUE;
+ 	}
+ 

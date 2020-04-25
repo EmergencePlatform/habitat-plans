@@ -23,6 +23,11 @@ ext_xdebug_filename=xdebug-XDEBUG_${ext_xdebug_version//\./_}.tar.gz
 ext_xdebug_shasum=77faf3bc49ca85d9b67ae2aa9d9cc4b017544f2566e918bf90fe23d68e044244
 ext_xdebug_dirname=xdebug-XDEBUG_${ext_xdebug_version//\./_}
 
+
+do_patch() {
+  patch -p0 -i "${PLAN_CONTEXT}/php67583.patch"
+}
+
 # copy config/hooks from php7
 do_build_config() {
   do_default_build_config

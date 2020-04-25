@@ -39,6 +39,7 @@ pkg_build_deps=(
   core/grep
   core/libgd
   core/make
+  core/patch
   core/re2c
 )
 pkg_bin_dirs=(bin sbin)
@@ -95,6 +96,10 @@ do_unpack() {
   unpack_file $ext_xdebug_filename
 }
 
+do_patch() {
+  return 0
+}
+
 do_build() {
   php_api_version="$(grep '#define PHP_API_VERSION' ./main/php.h | cut -d' ' -f 3)"
   set_runtime_env PHP_API_VERSION "${php_api_version}"
@@ -103,6 +108,8 @@ do_build() {
 
   set_runtime_env PHP_EXTENSION_DIR "${pkg_svc_config_install_path}/extensions-${php_zend_api_version}"
   push_runtime_env PHP_EXTENSION_SOURCES "${pkg_prefix}/lib/php/extensions/no-debug-non-zts-${php_zend_api_version}"
+
+  do_patch
 
   rm aclocal.m4
   ./buildconf --force
