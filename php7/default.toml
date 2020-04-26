@@ -19,7 +19,7 @@ remote_connect_back=1
 
 [extensions.apc.config]
 enabled = true
-shm_size = "32M"
+shm_size = "128M"
 shm_segments = 1
 ttl = 7200
 enable_cli = true
