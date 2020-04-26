@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# TODO: move gk-specific charts somewhere additional
-# TODO: add top-users chart
-
 # load netdata plugin config
 if [ -f "${NETDATA_USER_CONFIG_DIR}/emergence.conf" ]; then
     set -a
@@ -12,51 +9,25 @@ fi
 
 
 # define CACHE_STATUS chart
-echo "CHART gatekeeper.cache_status '' 'Gatekeeper Cache' B 'Gatekeeper' cache stacked 1"
-echo "DIMENSION application '' absolute"
-echo "DIMENSION responses '' absolute"
+echo "CHART emergence.cache_status '' 'Emergence Internal Cache' B 'Emergence' cache stacked 1"
 echo "DIMENSION free '' absolute"
+echo "DIMENSION used '' absolute"
 declare -A CACHE_STATUS
-
-
-# define ENDPOINT_REQUESTS chart
-echo "CHART gatekeeper.endpoint_requests '' 'Endpoint Requests' 'requests/hr' 'Gatekeeper' endpoint_requests stacked 2"
-declare -A ENDPOINT_REQUESTS_DIMENSIONS
 
 
 # update all charts indefinitely
 while true; do
-
 
     # update CACHE_STATUS
     while read -r line; do
         key="${line%%$'\t'*}"
         value="${line#*$'\t'}"
         CACHE_STATUS["${key}"]="${value}"
-    done < <(env -i hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:cache)
+    done < <(env -i HAB_LICENSE="${HAB_LICENSE}" hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:cache)
 
-    echo "BEGIN gatekeeper.cache_status"
-    echo "SET application=${CACHE_STATUS[application]}"
-    echo "SET responses=${CACHE_STATUS[responses]}"
+    echo "BEGIN emergence.cache_status"
     echo "SET free=${CACHE_STATUS[free]}"
-    echo "END"
-
-
-    # update ENDPOINT_REQUESTS
-    echo "BEGIN gatekeeper.endpoint_requests"
-
-    while read -r line; do
-        key="${line%%$'\t'*}"
-        value="${line#*$'\t'}"
-
-        if [[ ! -v ENDPOINT_REQUESTS_DIMENSIONS["${key}"] ]]; then
-            echo "DIMENSION ${key} '' absolute"
-            ENDPOINT_REQUESTS_DIMENSIONS["${key}"]='printed'
-        fi
-
-        echo "SET ${key}=${value}"
-    done < <(env -i hab pkg exec "${EMERGENCE_RUNTIME:-emergence/php-runtime}" emergence-console-run health:endpoint-requests)
-
+    echo "SET used=${CACHE_STATUS[used]}"
     echo "END"
 
 
