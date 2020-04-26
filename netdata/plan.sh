@@ -1,6 +1,6 @@
 pkg_name=netdata
 pkg_origin=emergence
-pkg_version=1.17.0
+pkg_version=1.21.1
 pkg_maintainer="Chris Alfano <chris@jarv.us>"
 pkg_license=("MIT")
 pkg_build_deps=(
@@ -9,7 +9,7 @@ pkg_build_deps=(
 pkg_wrapped_ident="jarvus/netdata"
 pkg_deps=(
   core/bash
-  "${pkg_wrapped_ident}"
+  "${pkg_wrapped_ident}/${pkg_version}"
 )
 
 pkg_exports=(
