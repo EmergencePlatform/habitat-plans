@@ -17,6 +17,13 @@ remote_autostart=1
 remote_port=9000
 remote_connect_back=1
 
+[extensions.apc.config]
+enabled = true
+shm_size = "32M"
+shm_segments = 1
+ttl = 7200
+enable_cli = true
+
 [pm]
 type = "dynamic"
 max_children = 50
