@@ -52,3 +52,6 @@ port = 9123
 [access]
 log = false
 format = ""
+
+[sendmail]
+path = "-t -i"
