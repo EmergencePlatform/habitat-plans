@@ -16,7 +16,6 @@ pkg_deps=(
   core/cacerts
   core/coreutils
   core/curl
-  core/file
   core/gcc-libs
   core/glibc
   core/icu
@@ -68,7 +67,6 @@ ext_xdebug_dirname=xdebug-${ext_xdebug_version}
 
 do_setup_environment() {
   set_runtime_env PHP_FPM "${pkg_prefix}/sbin/php-fpm"
-  set_runtime_env MAGIC "$(pkg_path_for file)/share/misc/magic.mgc"
   set_runtime_env SSL_CERT_FILE "$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
 }
 
