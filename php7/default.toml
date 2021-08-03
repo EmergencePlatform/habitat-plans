@@ -40,6 +40,7 @@ display = false
 [limit]
 memory = "200M"
 post = "200M"
+execution_time = "30"
 
 [cache]
 size = "512M"
