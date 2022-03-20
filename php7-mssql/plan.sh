@@ -11,7 +11,7 @@ pkg_shasum="fe960c4c32c83cd98c84fe85c5cdcb145ed0679ee36a3ab6f16132249a4c0d61"
 pkg_deps=(
   core/gcc-libs
   core/libtool
-  core/msodbcsql17
+  jarvus/msodbcsql17 # until merged: https://github.com/habitat-sh/core-plans/pull/4449
   core/unixodbc
   emergence/php7
 )
