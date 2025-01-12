@@ -1,7 +1,7 @@
 pkg_name=php7
 pkg_origin=emergence
 pkg_distname=php
-pkg_version=7.3.33
+pkg_version=7.4.33
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=("PHP-3.01")
 pkg_upstream_url=http://php.net/
@@ -9,7 +9,7 @@ pkg_description="PHP is a popular general-purpose scripting language that is esp
 pkg_source="https://php.net/get/${pkg_distname}-${pkg_version}.tar.xz/from/this/mirror"
 pkg_filename="${pkg_distname}-${pkg_version}.tar.xz"
 pkg_dirname="${pkg_distname}-${pkg_version}"
-pkg_shasum=166eaccde933381da9516a2b70ad0f447d7cec4b603d07b9a916032b215b90cc
+pkg_shasum=924846abf93bc613815c55dd3f5809377813ac62a9ec4eb3778675b82a27b927
 pkg_deps=(
   core/bash
   core/bzip2
@@ -18,15 +18,17 @@ pkg_deps=(
   core/curl
   core/gcc-libs
   core/glibc
-  core/icu
+  core/icu56
   core/libfcgi
   core/libjpeg-turbo
   core/libpng
   core/libxml2
   core/libzip
+  core/oniguruma
   core/openssl
   core/postgresql11-client
   core/readline
+  core/sqlite
   core/zip
   core/zlib
   jarvus/ghostscript
@@ -59,10 +61,10 @@ ext_imagick_filename=imagick-${ext_imagick_version}.tar.gz
 ext_imagick_shasum=8204d228ecbe5f744d625c90364808616127471581227415bca18857af981369
 ext_imagick_dirname=imagick-${ext_imagick_version}
 
-ext_xdebug_version=2.7.2
+ext_xdebug_version=3.1.6
 ext_xdebug_source=https://github.com/xdebug/xdebug/archive/${ext_xdebug_version}.tar.gz
 ext_xdebug_filename=xdebug-${ext_xdebug_version}.tar.gz
-ext_xdebug_shasum=b2aeb55335c5649034fe936abb90f61df175c4f0a0f0b97a219b3559541edfbd
+ext_xdebug_shasum=217e05fbe43940fcbfe18e8f15e3e8ded7dd35926b0bee916782d0fffe8dcc53
 ext_xdebug_dirname=xdebug-${ext_xdebug_version}
 
 do_setup_environment() {
@@ -111,35 +113,37 @@ do_build() {
 
   do_patch
 
-  rm aclocal.m4
-  ./buildconf --force
+  # build_line "Running buildconf..."
+  # attach
+  # ./buildconf --force
+
+  build_line "Running configure..."
   ./configure --prefix="${pkg_prefix}" \
+    --with-bz2="$(pkg_path_for bzip2)" \
     --with-config-file-path="${pkg_svc_config_install_path}" \
-    --enable-exif \
-    --enable-fpm \
-    --enable-apcu \
-    --with-imagick="$(pkg_path_for imagemagick)" \
-    --with-fpm-user="${pkg_svc_user}" \
+    --with-curl \
     --with-fpm-group="${pkg_svc_group}" \
-    --enable-mbstring \
-    --enable-opcache \
+    --with-fpm-user="${pkg_svc_user}" \
+    --with-gettext="$(pkg_path_for glibc)" \
+    --with-imagick="$(pkg_path_for imagemagick)" \
+    --with-jpeg \
+    --with-libxml \
     --with-mysqli=mysqlnd \
+    --with-openssl \
     --with-pdo-mysql=mysqlnd \
     --with-pdo-pgsql="$(pkg_path_for postgresql11-client)" \
     --with-readline="$(pkg_path_for readline)" \
-    --with-curl="$(pkg_path_for curl)" \
-    --with-gd \
-    --with-jpeg-dir="$(pkg_path_for libjpeg-turbo)" \
-    --with-libxml-dir="$(pkg_path_for libxml2)" \
-    --with-openssl="$(pkg_path_for openssl)" \
-    --with-png-dir="$(pkg_path_for libpng)" \
     --with-xmlrpc \
-    --with-zlib="$(pkg_path_for zlib)" \
-    --enable-zip \
-    --with-libzip="$(pkg_path_for libzip)" \
-    --with-bz2="$(pkg_path_for bzip2)" \
-    --with-gettext="$(pkg_path_for glibc)" \
-    --enable-intl
+    --with-zip \
+    --with-zlib \
+    --enable-apcu \
+    --enable-bcmath \
+    --enable-exif \
+    --enable-fpm \
+    --enable-gd \
+    --enable-intl \
+    --enable-mbstring \
+    --enable-opcache
 
   make -j "$(nproc)"
 
